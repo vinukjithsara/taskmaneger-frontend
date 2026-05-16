@@ -16,7 +16,7 @@ const About = ({ isLoggedIn }: AboutProps) => {
       <div className="about-content">
 
         <div className="about-logo-pill">
-         <img src={logo} alt="Worktrack logo" />
+         <img src={logo} alt="Worktrack201" />
         </div>
 
         {!isLoggedIn ? (
