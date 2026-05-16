@@ -1,4 +1,6 @@
+import logo from '/src/assets/logo.png'
 import { Link, useNavigate } from "react-router-dom";
+
 
 type NavbarProps = {
   isLoggedIn: boolean;
@@ -15,7 +17,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }: NavbarProps) => {
         {/* LOGO */}
         <div className="logo-pill">
           <Link to="/">
-            <img src="/src/assets/logo.png" alt="logo" />
+            <img src={logo} alt="logo" />
           </Link>
         </div>
 
