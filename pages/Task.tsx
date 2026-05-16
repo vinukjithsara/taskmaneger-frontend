@@ -106,12 +106,7 @@ const TaskPage = () => {
         title: newTitle,
         description: newDesc,
         user_id: userId,
-        due_datetime: newDeadline
-  ? new Date(newDeadline)
-      .toISOString()
-      .slice(0, 19)
-      .replace("T", " ")
-  : null,
+        due_datetime: newDeadline || null,
       }),
     })
       .then(() => {
@@ -142,36 +137,30 @@ const TaskPage = () => {
     setShowEdit(true);
   };
 
-  /* ================= SAVE EDIT ================= */
-  const saveEdit = () => {
-    if (!selectedTask) return;
+ /* ================= SAVE EDIT ================= */
+const saveEdit = () => {
+  if (!selectedTask) return;
 
-    fetch(
-      `${import.meta.env.VITE_API_URL}/api/tasks/${selectedTask.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          title: formTitle,
-          description: formDesc,
-          due_datetime: formDeadline
-            ? new Date(formDeadline)
-                .toISOString()
-                .slice(0, 19)
-                .replace("T", " ")
-            : null,
-        }),
-      }
-    )
-      .then(() => {
-        loadTasks();
-        setShowEdit(false);
-      })
-      .catch((err) => console.log(err));
-  };
+  fetch(
+    `${import.meta.env.VITE_API_URL}/api/tasks/${selectedTask.id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: formTitle,
+        description: formDesc,
+        due_datetime: formDeadline || null,
+      }),
+    }
+  )
+    .then(() => {
+      loadTasks();
+      setShowEdit(false);
+    })
+    .catch((err) => console.log(err));
+};
 
   /* ================= COMPLETE ================= */
   const confirmComplete = (task: Task) => {
@@ -217,24 +206,28 @@ const TaskPage = () => {
       .catch((err) => console.log(err));
   };
 
-  /* ================= FORMAT DATE ================= */
-  const formatDeadline = (
-    date?: string
-  ) => {
-    if (!date) return "No deadline";
+ /* ================= FORMAT DATE ================= */
+const formatDeadline = (
+  date?: string
+) => {
+  if (!date) return "No deadline";
 
-    return new Date(date.replace(" ", "T")).toLocaleString(
-  "en-US",
-  {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-    timeZone: "Asia/Colombo"
-  }
-)};
+  const localDate = new Date(
+    date.replace(" ", "T")
+  );
+
+  return localDate.toLocaleString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    }
+  );
+};
 
   /* ================= FILTER ================= */
   const filteredTasks = tasks.filter(
