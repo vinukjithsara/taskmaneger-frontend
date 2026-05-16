@@ -19,6 +19,7 @@ const TaskPage = () => {
 
   const [filter, setFilter] = useState("All");
   const [sortBy, setSortBy] = useState("Newest");
+  const [now, setNow] = useState(new Date());
 
   /* ADD FORM */
   const [newTitle, setNewTitle] = useState("");
@@ -45,6 +46,49 @@ const TaskPage = () => {
   useEffect(() => {
     loadTasks();
   }, []);
+
+  useEffect(() => {
+  const timer = setInterval(() => {
+    setNow(new Date());
+  }, 60000);
+
+  return () => clearInterval(timer);
+}, []);
+ const getCountdown = (date?: string) => {
+  if (!date) return "No deadline";
+
+  const diff =
+    new Date(date).getTime() -
+    now.getTime();
+
+  if (diff <= 0) {
+    return "Overdue";
+  }
+
+  const totalMinutes = Math.floor(
+    diff / 60000
+  );
+
+  const days = Math.floor(
+    totalMinutes / 1440
+  );
+
+  const hours = Math.floor(
+    (totalMinutes % 1440) / 60
+  );
+
+  const mins = totalMinutes % 60;
+
+  if (days > 0) {
+    return `${days}d ${hours}h left`;
+  }
+
+  if (hours > 0) {
+    return `${hours}h ${mins}m left`;
+  }
+
+  return `${mins}m left`;
+};
 
   /* ================= ADD TASK ================= */
   const addTask = () => {
@@ -336,6 +380,16 @@ const TaskPage = () => {
                   task.due_datetime
                 )}
               </p>
+
+              <p className={`countdown ${
+                 getCountdown(task.due_datetime) ===
+                  "Overdue"
+                 ? "overdue-text"
+                 : ""
+                }`}
+>
+  {getCountdown(task.due_datetime)}
+</p>
 
               <p className="task-meta">
                 Status:{" "}
