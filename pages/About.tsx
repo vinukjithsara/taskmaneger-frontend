@@ -1,4 +1,4 @@
-import logo from './src/assets/logo.jpg'
+import logo from '/src/assets/logo.png'
 type AboutProps = {
   isLoggedIn: boolean;
 };
