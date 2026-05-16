@@ -58,7 +58,7 @@ const TaskPage = () => {
   if (!date) return "No deadline";
 
   const diff =
-    new Date(date).getTime() -
+    new Date(date.replace(" ", "T")).getTime() -
     now.getTime();
 
   if (diff <= 0) {
@@ -214,17 +214,18 @@ const TaskPage = () => {
   ) => {
     if (!date) return "No deadline";
 
-    return new Date(date).toLocaleString(
-      "en-US",
-      {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }
-    );
-  };
+    return new Date(date.replace(" ", "T")).toLocaleString(
+  "en-US",
+  {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+    timeZone: "Asia/Colombo"
+  }
+)};
 
   /* ================= FILTER ================= */
   const filteredTasks = tasks.filter(
