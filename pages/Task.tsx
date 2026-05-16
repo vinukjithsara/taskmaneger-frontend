@@ -106,7 +106,12 @@ const TaskPage = () => {
         title: newTitle,
         description: newDesc,
         user_id: userId,
-        due_datetime: newDeadline || null,
+        due_datetime: newDeadline
+  ? new Date(newDeadline)
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ")
+  : null,
       }),
     })
       .then(() => {
@@ -152,8 +157,12 @@ const TaskPage = () => {
         body: JSON.stringify({
           title: formTitle,
           description: formDesc,
-          due_datetime:
-            formDeadline || null,
+          due_datetime: formDeadline
+            ? new Date(formDeadline)
+                .toISOString()
+                .slice(0, 19)
+                .replace("T", " ")
+            : null,
         }),
       }
     )
