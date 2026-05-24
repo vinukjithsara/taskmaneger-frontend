@@ -280,30 +280,87 @@ a.btn:hover {
 /* FOOTER */
 
 .footer {
-  background-color: #0C141C;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(0, 182, 176, 0.10), transparent 30%),
+    #0C141C;
   margin-top: 80px;
-  padding: 50px 40px 25px;
+  padding: 34px 24px 22px;
   color: rgba(255, 255, 255, 0.7);
 
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 -18px 50px rgba(0, 0, 0, 0.22);
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(760px, 80vw);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 182, 176, 0.45),
+    transparent
+  );
+  pointer-events: none;
 }
 
 .footer-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 45px;
-  text-align: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 48px;
+  text-align: left;
+  border-radius: 22px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.025),
+    rgba(255, 255, 255, 0.01)
+  );
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 18px 42px rgba(0, 0, 0, 0.28);
+}
+
+.footer-brand {
+  max-width: 280px;
+}
+
+.footer-brand .logo-pill {
+  margin-bottom: 18px;
+}
+
+.footer-brand p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 100px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 52px;
+  width: min(620px, 100%);
+}
+
+.footer-col {
+  min-width: 0;
 }
 
 .footer-col h4 {
-  margin-bottom: 14px;
+  margin: 0 0 16px;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.6px;
@@ -316,14 +373,23 @@ a.btn:hover {
   font-size: 14px;
   color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease,
+    text-shadow 0.2s ease;
 }
 
 .footer-col a:hover {
   color: #22d3ee;
+  transform: translateX(4px);
+  text-shadow: 0 0 12px rgba(34, 211, 238, 0.28);
 }
 
 .footer-bottom {
-  margin-top: 35px;
+  position: relative;
+  z-index: 1;
+  max-width: 1120px;
+  margin: 18px auto 0;
   padding-top: 18px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
@@ -334,9 +400,27 @@ a.btn:hover {
 /* MOBILE */
 
 @media (max-width: 768px) {
-  .footer-links {
+  .footer {
+    margin-top: 56px;
+    padding: 26px 18px 20px;
+  }
+
+  .footer-container {
+    padding: 26px 22px;
     flex-direction: column;
-    gap: 35px;
+    align-items: center;
+    gap: 34px;
+    text-align: center;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    width: 100%;
+  }
+
+  .footer-col a:hover {
+    transform: translateY(-1px);
   }
 
   .about-text {
