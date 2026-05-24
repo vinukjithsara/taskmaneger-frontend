@@ -34,14 +34,9 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }: NavbarProps) => {
         </button>
 
         {/* OFFCANVAS */}
-        <div className="offcanvas offcanvas-start text-bg-dark worktrack-offcanvas" id="offcanvasNavbar">
+        <div className="offcanvas offcanvas-start text-bg-dark" id="offcanvasNavbar">
           <div className="offcanvas-header border-bottom">
-            <div className="offcanvas-brand">
-              <div className="logo-pill">
-                <img src={logo} alt="WorkTrack logo" />
-              </div>
-              <h5 className="offcanvas-title">WORKTRACK</h5>
-            </div>
+            <h5 className="offcanvas-title">WORKTRACK</h5>
             <button
               type="button"
               className="btn-close btn-close-white"
