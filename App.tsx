@@ -1,5 +1,7 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
 
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -10,6 +12,144 @@ import Signup from "./pages/Signup";
 import Footer from "./components/Footer";
 import Dashboard from "./pages/Dashboard";
 import TaskPage from "./pages/Task";
+
+type PageTransitionProps = {
+  children: ReactNode;
+};
+
+type AnimatedRoutesProps = {
+  isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const pageTransition = {
+  initial: {
+    opacity: 0,
+    y: 14,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+  },
+};
+
+const PageTransition = ({ children }: PageTransitionProps) => (
+  <motion.main
+    className="page-transition"
+    variants={pageTransition}
+    initial="initial"
+    animate="animate"
+    exit="exit"
+    transition={{
+      duration: 0.38,
+      ease: [0.22, 1, 0.36, 1],
+    }}
+  >
+    {children}
+  </motion.main>
+);
+
+const AnimatedRoutes = ({
+  isLoggedIn,
+  setIsLoggedIn,
+}: AnimatedRoutesProps) => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        {/* PUBLIC ROUTES */}
+        <Route
+          path="/"
+          element={
+            <PageTransition>
+              <Home isLoggedIn={isLoggedIn} />
+            </PageTransition>
+          }
+        />
+
+        <Route
+          path="/about"
+          element={
+            <PageTransition>
+              <About isLoggedIn={isLoggedIn} />
+            </PageTransition>
+          }
+        />
+
+        <Route
+          path="/contact"
+          element={
+            <PageTransition>
+              <Contact isLoggedIn={isLoggedIn} />
+            </PageTransition>
+          }
+        />
+
+        <Route
+          path="/login"
+          element={
+            isLoggedIn ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <PageTransition>
+                <Login
+                  setIsLoggedIn={setIsLoggedIn}
+                />
+              </PageTransition>
+            )
+          }
+        />
+
+        <Route
+          path="/signup"
+          element={
+            <PageTransition>
+              <Signup />
+            </PageTransition>
+          }
+        />
+
+        {/* PROTECTED ROUTES */}
+        <Route
+          path="/dashboard"
+          element={
+            isLoggedIn ? (
+              <PageTransition>
+                <Dashboard />
+              </PageTransition>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/task"
+          element={
+            isLoggedIn ? (
+              <PageTransition>
+                <TaskPage />
+              </PageTransition>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        {/* UNKNOWN ROUTE */}
+        <Route
+          path="*"
+          element={<Navigate to="/" />}
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,70 +170,10 @@ function App() {
         setIsLoggedIn={setIsLoggedIn}
       />
 
-      <Routes>
-        {/* PUBLIC ROUTES */}
-        <Route
-          path="/"
-          element={<Home isLoggedIn={isLoggedIn} />}
-        />
-
-        <Route
-          path="/about"
-          element={<About isLoggedIn={isLoggedIn} />}
-        />
-
-        <Route
-          path="/contact"
-          element={<Contact isLoggedIn={isLoggedIn} />}
-        />
-
-        <Route
-          path="/login"
-          element={
-            isLoggedIn ? (
-              <Navigate to="/dashboard" />
-            ) : (
-              <Login
-                setIsLoggedIn={setIsLoggedIn}
-              />
-            )
-          }
-        />
-
-        <Route
-          path="/signup"
-          element={<Signup />}
-        />
-
-        {/* PROTECTED ROUTES */}
-        <Route
-          path="/dashboard"
-          element={
-            isLoggedIn ? (
-              <Dashboard />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        <Route
-          path="/task"
-          element={
-            isLoggedIn ? (
-              <TaskPage />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        />
-
-        {/* UNKNOWN ROUTE */}
-        <Route
-          path="*"
-          element={<Navigate to="/" />}
-        />
-      </Routes>
+      <AnimatedRoutes
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
 
       <Footer />
     </BrowserRouter>

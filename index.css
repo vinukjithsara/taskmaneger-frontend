@@ -9,6 +9,11 @@ body {
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
+.page-transition {
+  width: 100%;
+  will-change: opacity, transform;
+}
+
 /* NAVBAR */
 
 .nav-glass {
