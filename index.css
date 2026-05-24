@@ -1512,6 +1512,35 @@ a.btn:hover {
     grid-template-columns: 1fr;
   }
 
+  .task-strip {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 18px;
+  }
+
+  .task-strip h1 {
+    font-size: 28px;
+  }
+
+  .task-tools {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .task-tools select,
+  .add-task-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .add-task-btn {
+    min-height: 48px;
+  }
+
   .task-empty-state {
     min-height: 360px;
     margin-top: 28px;
@@ -1528,6 +1557,16 @@ a.btn:hover {
 
   .task-empty-state p {
     font-size: 15px;
+  }
+}
+
+@media (min-width: 560px) and (max-width: 900px) {
+  .task-tools {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .add-task-btn {
+    grid-column: 1 / -1;
   }
 }
 
