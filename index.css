@@ -2024,7 +2024,7 @@ textarea.modal-input {
 @media (max-width: 900px) {
   .task-strip {
     display: grid;
-    grid-template-columns: auto 12px 86px 86px 1fr;
+    grid-template-columns: auto 1fr 86px 86px;
     align-items: center;
     column-gap: 6px;
     row-gap: 16px;
