@@ -2026,7 +2026,7 @@ textarea.modal-input {
     display: grid;
     grid-template-columns: auto 96px 96px;
     align-items: center;
-    column-gap: 10px;
+    column-gap: 6px;
     row-gap: 16px;
     padding: 26px 10px 34px;
   }
