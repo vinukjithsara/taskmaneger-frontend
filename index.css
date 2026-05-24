@@ -2024,7 +2024,7 @@ textarea.modal-input {
 @media (max-width: 900px) {
   .task-strip {
     display: grid;
-    grid-template-columns: auto 96px 96px;
+    grid-template-columns: auto 86px 86px 1fr;
     align-items: center;
     column-gap: 6px;
     row-gap: 16px;
@@ -2060,9 +2060,9 @@ textarea.modal-input {
   }
 
   .add-task-btn {
-    grid-column: 1 / 4;
+    grid-column: 1 / -1;
     justify-self: center;
-    width: min(100%, 420px);
+    width: 100%;
     height: 56px;
     min-height: 0;
     padding: 0 18px;
