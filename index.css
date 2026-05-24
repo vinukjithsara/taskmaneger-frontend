@@ -766,6 +766,7 @@ a.btn:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
 
   box-shadow:
     inset 0 0 0 1px rgba(255,255,255,0.1),
@@ -781,22 +782,61 @@ a.btn:hover {
 
 /* TASK TEXT — FIXED VISIBILITY */
 .task-list li span {
+  min-width: 0;
   font-size: 16px;
   font-weight: 500;
   color: #ffffff; /* <<< IMPORTANT FIX */
+  overflow-wrap: anywhere;
 }
 
 /* COMPLETED TASK */
-.task-list li.done span {
+.task-list li.done > span {
   color: rgba(255,255,255,0.6);
   text-decoration: line-through;
 }
 
-/* CHECK ICON */
-.check {
-  font-size: 18px;
-  font-weight: bold;
-  color: #00b6b0;
+/* COMPLETED BADGE */
+.completed-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(34,197,94,0.72);
+  background:
+    radial-gradient(circle at 35% 28%, rgba(187,247,208,0.28), transparent 38%),
+    rgba(34,197,94,0.12);
+  box-shadow:
+    inset 0 0 10px rgba(34,197,94,0.18),
+    0 0 16px rgba(34,197,94,0.28);
+  color: #bbf7d0;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+}
+
+.completed-badge:hover {
+  transform: scale(1.08);
+  border-color: rgba(134,239,172,0.95);
+  background:
+    radial-gradient(circle at 35% 28%, rgba(220,252,231,0.36), transparent 40%),
+    rgba(34,197,94,0.18);
+  box-shadow:
+    inset 0 0 12px rgba(34,197,94,0.28),
+    0 0 24px rgba(34,197,94,0.42),
+    0 8px 18px rgba(0,0,0,0.24);
+}
+
+.dashboard-completed-badge {
+  margin-left: 18px;
 }
 
 /* ================= MOBILE ================= */
@@ -913,8 +953,13 @@ a.btn:hover {
   background: #ff4d6d;
 }
 
-.status-dot.done {
-  background: #00b6b0;
+.task-card-completed-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  font-size: 18px;
 }
 
 /* TEXT */

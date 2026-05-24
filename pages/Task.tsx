@@ -401,13 +401,16 @@ const formatDeadline = (
                     : ""
               }`}
             >
-              <span
-                className={`status-dot ${
-                  done
-                    ? "done"
-                    : "pending"
-                }`}
-              />
+              {done ? (
+                <div
+                  className="completed-badge task-card-completed-badge"
+                  aria-label="Completed"
+                >
+                  &#10003;
+                </div>
+              ) : (
+                <span className="status-dot pending" />
+              )}
 
               <h3 className="task-title">
                 {task.title}
