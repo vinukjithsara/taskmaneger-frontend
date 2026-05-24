@@ -1267,7 +1267,7 @@ a.btn:hover {
 .task-strip {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .add-task-btn {
@@ -1884,8 +1884,13 @@ textarea.modal-input {
   display:grid;
   grid-template-columns: repeat(3, 108px);
   align-items:center;
+  justify-content:start;
   gap:12px;
   margin:15px 0 25px;
+}
+
+.task-strip .task-tools {
+  margin-left: 0;
 }
 
 .task-tools select{
