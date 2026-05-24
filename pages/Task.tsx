@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import noDataIllustration from "../assets/nodata.svg";
 import todoIllustration from "../assets/todo.svg";
@@ -8,6 +9,24 @@ type Task = {
   description?: string;
   status: string;
   due_datetime?: string;
+};
+
+const taskListMotion = {
+  hidden: {
+    opacity: 0,
+    y: 14,
+    scale: 0.98,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    scale: 0.97,
+  },
 };
 
 const TaskPage = () => {
@@ -399,23 +418,45 @@ const formatDeadline = (
       </div>
 
       {/* TASK GRID */}
-      {emptyState ? (
-        <div className="task-empty-state">
-          <div className="task-empty-art-wrap">
-            <img
-              className="task-empty-art"
-              src={emptyState.image}
-              alt=""
-              aria-hidden="true"
-            />
-          </div>
+      <AnimatePresence mode="wait">
+        {emptyState ? (
+          <motion.div
+            key={emptyState.title}
+            className="task-empty-state"
+            initial={{ opacity: 0, y: 16, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.98 }}
+            transition={{
+              duration: 0.32,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            <div className="task-empty-art-wrap">
+              <img
+                className="task-empty-art"
+                src={emptyState.image}
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
 
-          <h2>{emptyState.title}</h2>
-          <p>{emptyState.subtitle}</p>
-        </div>
-      ) : (
-        <div className="task-grid">
-          {finalTasks.map((task) => {
+            <h2>{emptyState.title}</h2>
+            <p>{emptyState.subtitle}</p>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="task-grid"
+            className="task-grid"
+            layout
+            transition={{
+              layout: {
+                duration: 0.38,
+                ease: [0.22, 1, 0.36, 1],
+              },
+            }}
+          >
+            <AnimatePresence mode="popLayout">
+              {finalTasks.map((task, index) => {
           const done = isTaskCompleted(task);
           const overdue = isTaskOverdue(task);
           const countdown = done
@@ -423,26 +464,52 @@ const formatDeadline = (
             : getCountdown(task.due_datetime);
 
           return (
-            <div
+            <motion.div
               key={task.id}
-              className={`task-card ${
-                done
-                  ? "task-completed"
-                  : overdue
-                    ? "task-overdue"
-                    : ""
-              }`}
+              className="task-card-motion"
+              layout
+              variants={taskListMotion}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              transition={{
+                opacity: {
+                  duration: 0.22,
+                  delay: Math.min(index * 0.025, 0.12),
+                },
+                y: {
+                  duration: 0.3,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+                scale: {
+                  duration: 0.28,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+                layout: {
+                  duration: 0.42,
+                  ease: [0.22, 1, 0.36, 1],
+                },
+              }}
             >
-              {done ? (
-                <span
-                  className="completed-check task-card-completed-check"
-                  aria-label="Completed"
-                >
-                  &#10003;
-                </span>
-              ) : (
-                <span className="status-dot pending" />
-              )}
+              <div
+                className={`task-card ${
+                  done
+                    ? "task-completed"
+                    : overdue
+                      ? "task-overdue"
+                      : ""
+                }`}
+              >
+                {done ? (
+                  <span
+                    className="completed-check task-card-completed-check"
+                    aria-label="Completed"
+                  >
+                    &#10003;
+                  </span>
+                ) : (
+                  <span className="status-dot pending" />
+                )}
 
               <h3 className="task-title">
                 {task.title}
@@ -518,11 +585,14 @@ const formatDeadline = (
                   </button>
                 )}
               </div>
-            </div>
+              </div>
+            </motion.div>
           );
-          })}
-        </div>
-      )}
+              })}
+            </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ================= ADD MODAL ================= */}
       {showAdd && (

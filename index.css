@@ -903,6 +903,11 @@ a.btn:hover {
   gap: 28px;
 }
 
+.task-card-motion {
+  min-width: 0;
+  will-change: transform, opacity;
+}
+
 .task-empty-state {
   position: relative;
   max-width: 620px;
