@@ -1,5 +1,5 @@
 import logo from '/src/assets/logo.png'
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 
 type NavbarProps = {
@@ -9,6 +9,8 @@ type NavbarProps = {
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn }: NavbarProps) => {
   const navigate = useNavigate();
+  const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+    `nav-link${isActive ? " active" : ""}`;
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
@@ -46,45 +48,43 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }: NavbarProps) => {
             <ul className="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1">
 
               <li className="nav-item mx-2">
-                <Link to="/" className="nav-link">Home</Link>
+                <NavLink to="/" className={navLinkClass}>Home</NavLink>
               </li>
 
               <li className="nav-item mx-2">
-                <Link to="/about" className="nav-link">About</Link>
+                <NavLink to="/about" className={navLinkClass}>About</NavLink>
               </li>
 
               <li className="nav-item mx-2">
-                <Link to="/contact" className="nav-link">Contact</Link>
+                <NavLink to="/contact" className={navLinkClass}>Contact</NavLink>
               </li>
 
               {isLoggedIn && (
                 <>
                   <li className="nav-item mx-2">
-                    <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                    <NavLink to="/dashboard" className={navLinkClass}>Dashboard</NavLink>
                   </li>
 
                   <li className="nav-item mx-2">
-                    <Link to="/task" className="nav-link">Task</Link>
+                    <NavLink to="/task" className={navLinkClass}>Task</NavLink>
                   </li>
                 </>
               )}
             </ul>
 
             {/* AUTH BUTTONS */}
-            <div className="d-flex align-items-center gap-3">
+            <div className="d-flex align-items-center gap-3 nav-auth-actions">
               {!isLoggedIn ? (
                 <>
                   <button
-                    className="btn px-3 py-1 rounded-3"
-                    style={{ border: "1px solid #00B6B0", color: "#00B6B0" }}
+                    className="btn px-3 py-1 rounded-3 nav-action-btn"
                     onClick={() => navigate("/login")}
                   >
                     Login
                   </button>
 
                   <button
-                    className="btn px-3 py-1 rounded-3"
-                    style={{ border: "1px solid #00B6B0", color: "#00B6B0" }}
+                    className="btn px-3 py-1 rounded-3 nav-action-btn"
                     onClick={() => navigate("/signup")}
                   >
                     Sign Up
@@ -92,8 +92,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }: NavbarProps) => {
                 </>
               ) : (
                 <button
-                  className="btn px-3 py-1 rounded-3"
-                  style={{ border: "1px solid #ff6b6b", color: "#ff6b6b" }}
+                  className="btn px-3 py-1 rounded-3 nav-action-btn logout"
                   onClick={() => {
                     setIsLoggedIn(false);
                     navigate("/");
