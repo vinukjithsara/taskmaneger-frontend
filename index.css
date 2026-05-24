@@ -815,7 +815,15 @@ a.btn:hover {
     text-shadow 0.22s ease;
 }
 
-.completed-check:hover {
+.task-list li .completed-check,
+.task-card .completed-check {
+  color: #4ade80;
+  text-shadow: 0 0 10px rgba(74,222,128,0.42);
+}
+
+.completed-check:hover,
+.task-list li .completed-check:hover,
+.task-card .completed-check:hover {
   transform: translateY(-1px) scale(1.06);
   color: #86efac;
   text-shadow: 0 0 14px rgba(134,239,172,0.52);
