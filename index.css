@@ -758,6 +758,8 @@ a.btn:hover {
   font-size: 42px;
   font-weight: 700;
   line-height: 1.2;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
 }
 
 .hero-title span {
