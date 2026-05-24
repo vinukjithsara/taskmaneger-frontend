@@ -11,6 +11,12 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }: NavbarProps) => {
   const navigate = useNavigate();
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `nav-link${isActive ? " active" : ""}`;
+  const closeMobileMenu = () => {
+    const offcanvas = document.getElementById("offcanvasNavbar");
+    const closeButton = offcanvas?.querySelector<HTMLButtonElement>(".btn-close");
+
+    closeButton?.click();
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
@@ -48,25 +54,25 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }: NavbarProps) => {
             <ul className="navbar-nav justify-content-center align-items-center fs-5 flex-grow-1">
 
               <li className="nav-item mx-2">
-                <NavLink to="/" className={navLinkClass}>Home</NavLink>
+                <NavLink to="/" className={navLinkClass} onClick={closeMobileMenu}>Home</NavLink>
               </li>
 
               <li className="nav-item mx-2">
-                <NavLink to="/about" className={navLinkClass}>About</NavLink>
+                <NavLink to="/about" className={navLinkClass} onClick={closeMobileMenu}>About</NavLink>
               </li>
 
               <li className="nav-item mx-2">
-                <NavLink to="/contact" className={navLinkClass}>Contact</NavLink>
+                <NavLink to="/contact" className={navLinkClass} onClick={closeMobileMenu}>Contact</NavLink>
               </li>
 
               {isLoggedIn && (
                 <>
                   <li className="nav-item mx-2">
-                    <NavLink to="/dashboard" className={navLinkClass}>Dashboard</NavLink>
+                    <NavLink to="/dashboard" className={navLinkClass} onClick={closeMobileMenu}>Dashboard</NavLink>
                   </li>
 
                   <li className="nav-item mx-2">
-                    <NavLink to="/task" className={navLinkClass}>Task</NavLink>
+                    <NavLink to="/task" className={navLinkClass} onClick={closeMobileMenu}>Task</NavLink>
                   </li>
                 </>
               )}
@@ -78,6 +84,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }: NavbarProps) => {
                 <>
                   <button
                     className="btn px-3 py-1 rounded-3 nav-action-btn"
+                    data-bs-dismiss="offcanvas"
                     onClick={() => navigate("/login")}
                   >
                     Login
@@ -85,6 +92,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }: NavbarProps) => {
 
                   <button
                     className="btn px-3 py-1 rounded-3 nav-action-btn"
+                    data-bs-dismiss="offcanvas"
                     onClick={() => navigate("/signup")}
                   >
                     Sign Up
@@ -93,6 +101,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }: NavbarProps) => {
               ) : (
                 <button
                   className="btn px-3 py-1 rounded-3 nav-action-btn logout"
+                  data-bs-dismiss="offcanvas"
                   onClick={() => {
                     setIsLoggedIn(false);
                     navigate("/");
