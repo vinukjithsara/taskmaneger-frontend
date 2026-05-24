@@ -175,7 +175,7 @@ function App() {
         setIsLoggedIn={setIsLoggedIn}
       />
 
-      <Footer isLoggedIn={isLoggedIn} />
+      <Footer />
     </BrowserRouter>
   );
 }
