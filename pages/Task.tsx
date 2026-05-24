@@ -402,12 +402,12 @@ const formatDeadline = (
               }`}
             >
               {done ? (
-                <div
-                  className="completed-badge task-card-completed-badge"
+                <span
+                  className="completed-check task-card-completed-check"
                   aria-label="Completed"
                 >
                   &#10003;
-                </div>
+                </span>
               ) : (
                 <span className="status-dot pending" />
               )}

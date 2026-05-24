@@ -89,14 +89,14 @@ const Dashboard = () => {
         <ul className="task-list">
           {todos.map((todo) => (
             <li key={todo.id} className={isCompleted(todo) ? "done" : ""}>
-              <span>{todo.title}</span>
+              <span className="task-list-title">{todo.title}</span>
               {isCompleted(todo) && (
-                <div
-                  className="completed-badge dashboard-completed-badge"
+                <span
+                  className="completed-check dashboard-completed-check"
                   aria-label="Completed"
                 >
                   &#10003;
-                </div>
+                </span>
               )}
             </li>
           ))}
