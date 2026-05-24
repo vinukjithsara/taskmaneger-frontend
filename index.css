@@ -1288,3 +1288,59 @@ textarea.modal-input {
 .overdue-text{
   color:#ff4d6d;
 }
+
+.done-text{
+  color:#22c55e;
+  font-weight:700;
+}
+
+.pending-text{
+  color:#facc15;
+  font-weight:700;
+}
+
+/* ================= ELITE TASK CARDS ================= */
+
+.task-card{
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border 0.25s ease;
+}
+
+/* hover effect */
+.task-card:hover{
+  transform:translateY(-6px);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.35);
+}
+
+/* completed glow */
+.task-completed{
+  border:1px solid rgba(34,197,94,.35);
+
+  box-shadow:
+    0 0 18px rgba(34,197,94,.18);
+}
+
+/* stronger hover */
+.task-completed:hover{
+  box-shadow:
+    0 0 30px rgba(34,197,94,.28),
+    0 20px 40px rgba(0,0,0,.35);
+}
+
+/* overdue glow */
+.task-overdue{
+  border:1px solid rgba(255,77,109,.35);
+
+  box-shadow:
+    0 0 18px rgba(255,77,109,.18);
+}
+
+/* stronger hover */
+.task-overdue:hover{
+  box-shadow:
+    0 0 30px rgba(255,77,109,.30),
+    0 20px 40px rgba(0,0,0,.35);
+}

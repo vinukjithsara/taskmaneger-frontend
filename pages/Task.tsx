@@ -54,12 +54,22 @@ const TaskPage = () => {
 
   return () => clearInterval(timer);
 }, []);
- const getCountdown = (date?: string) => {
-  if (!date) return "No deadline";
+ const getDeadlineTime = (date?: string) => {
+  if (!date) return null;
 
-  const diff =
-    new Date(date.replace(" ", "T")).getTime() -
-    now.getTime();
+  const time = new Date(
+    date.replace(" ", "T")
+  ).getTime();
+
+  return Number.isNaN(time) ? null : time;
+};
+
+ const getCountdown = (date?: string) => {
+  const deadlineTime = getDeadlineTime(date);
+
+  if (!deadlineTime) return "No deadline";
+
+  const diff = deadlineTime - now.getTime();
 
   if (diff <= 0) {
     return "Overdue";
@@ -88,6 +98,25 @@ const TaskPage = () => {
   }
 
   return `${mins}m left`;
+};
+
+const getTaskStatus = (task: Task) =>
+  task.status.trim().toLowerCase();
+
+const isTaskCompleted = (task: Task) =>
+  getTaskStatus(task) === "completed";
+
+const isTaskPending = (task: Task) =>
+  getTaskStatus(task) === "pending";
+
+const isTaskOverdue = (task: Task) => {
+  const deadlineTime = getDeadlineTime(task.due_datetime);
+
+  return (
+    isTaskPending(task) &&
+    deadlineTime !== null &&
+    deadlineTime <= now.getTime()
+  );
 };
 
   /* ================= ADD TASK ================= */
@@ -178,8 +207,16 @@ const saveEdit = () => {
       }
     )
       .then(() => {
+        setTasks((currentTasks) =>
+          currentTasks.map((task) =>
+            task.id === selectedTask.id
+              ? { ...task, status: "Completed" }
+              : task
+          )
+        );
         loadTasks();
         setShowComplete(false);
+        setSelectedTask(null);
       })
       .catch((err) => console.log(err));
   };
@@ -232,23 +269,14 @@ const formatDeadline = (
   /* ================= FILTER ================= */
   const filteredTasks = tasks.filter(
     (task) => {
-      const now = new Date();
-
       if (filter === "Pending")
-        return task.status === "Pending";
+        return isTaskPending(task);
 
       if (filter === "Completed")
-        return (
-          task.status === "Completed"
-        );
+        return isTaskCompleted(task);
 
       if (filter === "Overdue")
-        return (
-          task.status === "Pending" &&
-          task.due_datetime &&
-          new Date(task.due_datetime) <
-            now
-        );
+        return isTaskOverdue(task);
 
       return true;
     }
@@ -352,14 +380,22 @@ const formatDeadline = (
       {/* TASK GRID */}
       <div className="task-grid">
         {finalTasks.map((task) => {
-          const done =
-            task.status ===
-            "Completed";
+          const done = isTaskCompleted(task);
+          const overdue = isTaskOverdue(task);
+          const countdown = done
+            ? "Completed"
+            : getCountdown(task.due_datetime);
 
           return (
             <div
               key={task.id}
-              className="task-card"
+              className={`task-card ${
+                done
+                  ? "task-completed"
+                  : overdue
+                    ? "task-overdue"
+                    : ""
+              }`}
             >
               <span
                 className={`status-dot ${
@@ -384,15 +420,17 @@ const formatDeadline = (
                 )}
               </p>
 
-              <p className={`countdown ${
-                 getCountdown(task.due_datetime) ===
-                  "Overdue"
-                 ? "overdue-text"
-                 : ""
+              <p
+                className={`countdown ${
+                  done
+                    ? "done-text"
+                    : overdue
+                      ? "overdue-text"
+                      : ""
                 }`}
->
-  {getCountdown(task.due_datetime)}
-</p>
+              >
+                {countdown}
+              </p>
 
               <p className="task-meta">
                 Status:{" "}
