@@ -2069,3 +2069,59 @@ textarea.modal-input {
     font-size: 15px;
   }
 }
+
+@media (max-width: 520px) {
+  .home-strip {
+    padding: 7px 26px;
+  }
+
+  .home-strip h1 {
+    font-size: 21px;
+  }
+
+  .hero-container {
+    margin-top: 34px;
+    padding: 0 26px;
+    gap: 24px;
+  }
+
+  .hero-left {
+    gap: 12px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+    line-height: 1.18;
+  }
+
+  .hero-desc {
+    max-width: 260px;
+    font-size: 11px;
+    line-height: 1.65;
+  }
+
+  .hero-right img {
+    max-width: 250px;
+  }
+
+  .hero-cta {
+    padding: 10px 20px;
+    border-radius: 11px;
+    font-size: 12px;
+  }
+
+  .welcome-banner {
+    max-width: calc(100% - 50px);
+    margin-top: 24px;
+    padding: 11px 18px;
+    gap: 9px;
+    border-radius: 14px;
+    font-size: 10px;
+    line-height: 1.35;
+    letter-spacing: 0.2px;
+  }
+
+  .welcome-icon {
+    font-size: 15px;
+  }
+}
