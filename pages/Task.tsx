@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import noDataIllustration from "../assets/nodata.svg";
+import todoIllustration from "../assets/todo.svg";
 
 type Task = {
   id: number;
@@ -329,6 +331,21 @@ const formatDeadline = (
     return 0;
   });
 
+  const emptyState =
+    tasks.length === 0
+      ? {
+          image: todoIllustration,
+          title: "No Tasks Yet",
+          subtitle: "Create your first task to stay organized.",
+        }
+      : finalTasks.length === 0
+        ? {
+            image: noDataIllustration,
+            title: "No Matching Tasks",
+            subtitle: "Try changing filters or create a new task.",
+          }
+        : null;
+
   return (
     <section className="task-page">
       {/* TOP BAR */}
@@ -382,8 +399,23 @@ const formatDeadline = (
       </div>
 
       {/* TASK GRID */}
-      <div className="task-grid">
-        {finalTasks.map((task) => {
+      {emptyState ? (
+        <div className="task-empty-state">
+          <div className="task-empty-art-wrap">
+            <img
+              className="task-empty-art"
+              src={emptyState.image}
+              alt=""
+              aria-hidden="true"
+            />
+          </div>
+
+          <h2>{emptyState.title}</h2>
+          <p>{emptyState.subtitle}</p>
+        </div>
+      ) : (
+        <div className="task-grid">
+          {finalTasks.map((task) => {
           const done = isTaskCompleted(task);
           const overdue = isTaskOverdue(task);
           const countdown = done
@@ -488,8 +520,9 @@ const formatDeadline = (
               </div>
             </div>
           );
-        })}
-      </div>
+          })}
+        </div>
+      )}
 
       {/* ================= ADD MODAL ================= */}
       {showAdd && (
