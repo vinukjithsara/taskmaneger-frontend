@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 type Todo = {
   id: number;
@@ -8,21 +9,46 @@ type Todo = {
 
 const Dashboard = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const location = useLocation();
 
   // 🔥 GET USER ID
   const userId = localStorage.getItem("userId");
 
-  useEffect(() => {
+  const loadTasks = useCallback(() => {
     if (!userId) return;
 
     fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${userId}`)
       .then(res => res.json())
       .then(data => setTodos(data))
       .catch(err => console.log(err));
-  }, []);
+  }, [userId]);
+
+  useEffect(() => {
+    loadTasks();
+  }, [loadTasks, location.key]);
+
+  useEffect(() => {
+    const refreshDashboard = () => loadTasks();
+
+    const refreshWhenVisible = () => {
+      if (document.visibilityState === "visible") {
+        loadTasks();
+      }
+    };
+
+    window.addEventListener("focus", refreshDashboard);
+    window.addEventListener("tasks-updated", refreshDashboard);
+    document.addEventListener("visibilitychange", refreshWhenVisible);
+
+    return () => {
+      window.removeEventListener("focus", refreshDashboard);
+      window.removeEventListener("tasks-updated", refreshDashboard);
+      document.removeEventListener("visibilitychange", refreshWhenVisible);
+    };
+  }, [loadTasks]);
 
   const isCompleted = (todo: Todo) =>
-    todo.status.trim().toLowerCase() === "completed";
+    todo.status?.trim().toLowerCase() === "completed";
 
   const completedCount = todos.filter(isCompleted).length;
   const pendingCount = todos.filter(todo => !isCompleted(todo)).length;

@@ -3,7 +3,7 @@ import { useState } from "react";
 type TaskType = {
   id: number;
   title: string;
-  completed: boolean;
+  status: string;
 };
 
 type EditTaskModalProps = {

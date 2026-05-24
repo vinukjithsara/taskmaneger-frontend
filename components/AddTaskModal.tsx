@@ -2,7 +2,7 @@ import { useState } from "react";
 type TaskType = {
   id: number;
   title: string;
-  completed: boolean;
+  status: string;
 };
 
 type AddTaskModalProps = {
@@ -19,7 +19,7 @@ const AddTaskModal = ({ onClose, onAdd }: AddTaskModalProps) => {
     onAdd({
       id: Date.now(), // fake unique id
       title,
-      completed: false
+      status: "Pending"
     });
 
     onClose();

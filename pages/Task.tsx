@@ -139,6 +139,7 @@ const isTaskOverdue = (task: Task) => {
       }),
     })
       .then(() => {
+        window.dispatchEvent(new Event("tasks-updated"));
         loadTasks();
         setShowAdd(false);
 
@@ -185,6 +186,7 @@ const saveEdit = () => {
     }
   )
     .then(() => {
+      window.dispatchEvent(new Event("tasks-updated"));
       loadTasks();
       setShowEdit(false);
     })
@@ -214,6 +216,7 @@ const saveEdit = () => {
               : task
           )
         );
+        window.dispatchEvent(new Event("tasks-updated"));
         loadTasks();
         setShowComplete(false);
         setSelectedTask(null);
@@ -237,6 +240,7 @@ const saveEdit = () => {
       }
     )
       .then(() => {
+        window.dispatchEvent(new Event("tasks-updated"));
         loadTasks();
         setShowDelete(false);
       })
