@@ -337,9 +337,38 @@ a.btn:hover {
 
   .navbar > .container {
     min-height: 64px;
-    padding: 10px 14px;
+    padding: 8px 12px;
     border-radius: 18px;
     position: static;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .navbar .logo-pill {
+    padding: 8px 12px;
+    border-radius: 10px;
+  }
+
+  .navbar .logo-pill img {
+    height: 24px;
+  }
+
+  .navbar-toggler {
+    width: 34px;
+    height: 34px;
+    padding: 0 !important;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+
+  .navbar-toggler-icon {
+    width: 18px;
+    height: 18px;
+    background-size: 18px 18px;
   }
 
   .navbar .offcanvas.offcanvas-start {
@@ -1784,7 +1813,9 @@ a.btn:hover {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.65);
+  background: rgba(2, 8, 14, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1794,10 +1825,14 @@ a.btn:hover {
 .modal-card {
   width: 440px;
   max-width: calc(100% - 32px);
-  background: linear-gradient(135deg,#0f1d33,#13243d);
+  background:
+    linear-gradient(180deg, rgba(16, 27, 38, 0.96), rgba(11, 20, 29, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 18px;
   padding: 22px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.45);
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.48),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 
 .modal-card h2 {
@@ -1808,7 +1843,8 @@ a.btn:hover {
 
 .modal-input {
   width: 100%;
-  background: #1e2b42;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border: none;
   outline: none;
   color: white;
@@ -1819,7 +1855,7 @@ a.btn:hover {
 }
 
 .modal-input::placeholder {
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 textarea.modal-input {
@@ -1848,12 +1884,12 @@ textarea.modal-input {
 }
 
 .modal-actions button:first-child {
-  background: #3b4658;
+  background: rgba(255, 255, 255, 0.10);
   color: white;
 }
 
 .primary {
-  background: #3b82f6;
+  background: #00b6b0;
   color: white;
 }
 
@@ -1863,7 +1899,7 @@ textarea.modal-input {
 }
 
 .success {
-  background: #10c8b5;
+  background: #00b6b0;
   color: white;
 }
 
@@ -1873,7 +1909,8 @@ textarea.modal-input {
   border:none;
   outline:none;
   border-radius:12px;
-  background:rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.055);
+  border:1px solid rgba(255,255,255,0.08);
   color:white;
   font-size:14px;
   font-weight:500;
@@ -1883,10 +1920,10 @@ textarea.modal-input {
 
 /* focus effect */
 .modal-input[type="datetime-local"]:focus{
-  background:rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.075);
   box-shadow:
-    0 0 0 2px rgba(59,130,246,0.55),
-    0 10px 25px rgba(37,99,235,0.18);
+    0 0 0 2px rgba(0,182,176,0.36),
+    0 10px 25px rgba(0,182,176,0.10);
   transform:translateY(-1px);
 }
 
@@ -1910,10 +1947,10 @@ textarea.modal-input {
 .modal-input{
   width:100%;
   padding:13px 15px;
-  border:none;
+  border:1px solid rgba(255,255,255,0.08);
   outline:none;
   border-radius:12px;
-  background:rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.055);
   color:white;
   font-size:14px;
   font-weight:500;
@@ -1924,10 +1961,10 @@ textarea.modal-input {
 
 /* blue glow when clicked */
 .modal-input:focus{
-  background:rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.075);
   box-shadow:
-    0 0 0 2px rgba(59,130,246,0.55),
-    0 10px 25px rgba(37,99,235,0.18);
+    0 0 0 2px rgba(0,182,176,0.36),
+    0 10px 25px rgba(0,182,176,0.10);
   transform:translateY(-1px);
 }
 
@@ -1953,22 +1990,22 @@ textarea.modal-input {
   transform:scale(0.97);
 }
 .modal-actions .primary{
-  background:linear-gradient(135deg,#3b82f6,#2563eb);
-  color:white;
-  box-shadow:0 10px 22px rgba(37,99,235,0.35);
+  background:linear-gradient(135deg,#00b6b0,#12c7c0);
+  color:#032221;
+  box-shadow:0 10px 22px rgba(0,182,176,0.22);
 }
 
 .modal-actions .primary:hover{
-  box-shadow:0 14px 28px rgba(37,99,235,0.45);
+  box-shadow:0 14px 28px rgba(0,182,176,0.28);
 }
 .modal-actions button:not(.primary):not(.danger):not(.success){
-  background:rgba(255,255,255,0.14);
+  background:rgba(255,255,255,0.10);
   color:white;
 }
 .modal-actions .success{
-  background:linear-gradient(135deg,#14b8a6,#0d9488);
-  color:white;
-  box-shadow:0 10px 22px rgba(13,148,136,0.30);
+  background:linear-gradient(135deg,#00b6b0,#0d9488);
+  color:#032221;
+  box-shadow:0 10px 22px rgba(0,182,176,0.24);
 }
 .modal-card{
   animation:popIn 0.28s ease;
