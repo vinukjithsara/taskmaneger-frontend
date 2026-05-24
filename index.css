@@ -112,8 +112,8 @@ body {
 
 .nav-action-btn {
   border: 1px solid #00B6B0;
-  color: #ffffff;
-  background: rgba(0, 182, 176, 0.08);
+  color: #00B6B0;
+  background: rgba(0, 182, 176, 0.04);
   font-size: 14px;
   font-weight: 600;
   transition:
@@ -125,8 +125,8 @@ body {
 }
 
 .nav-action-btn:hover {
-  color: #ffffff;
-  background: rgba(0, 182, 176, 0.16);
+  color: #e6ffff;
+  background: rgba(0, 182, 176, 0.14);
   border-color: #00B6B0;
   transform: translateY(-1px);
   box-shadow: 0 0 18px rgba(0, 182, 176, 0.18);
@@ -134,13 +134,13 @@ body {
 
 .nav-action-btn.logout {
   border-color: #ff6b6b;
-  color: #ffffff;
-  background: rgba(255, 107, 107, 0.08);
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.04);
 }
 
 .nav-action-btn.logout:hover {
-  color: #ffffff;
-  background: rgba(255, 107, 107, 0.16);
+  color: #ffe8e8;
+  background: rgba(255, 107, 107, 0.12);
   border-color: #ff6b6b;
   box-shadow: 0 0 18px rgba(255, 107, 107, 0.16);
 }
