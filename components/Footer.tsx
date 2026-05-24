@@ -1,10 +1,10 @@
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-
         {/* BRAND */}
         <div className="footer-brand">
           <div className="logo-pill">
@@ -14,32 +14,17 @@ const Footer = () => {
         </div>
 
         {/* LINKS */}
-        <div className="footer-links">
-          <div className="footer-col">
-            <h4>Product</h4>
-            <a href="#">Features</a>
-            <a href="#">Pricing</a>
-            <a href="#">Updates</a>
-          </div>
-
-          <div className="footer-col">
-            <h4>Company</h4>
-            <a href="#">About</a>
-            <a href="#">Careers</a>
-            <a href="#">Contact</a>
-          </div>
-
-          <div className="footer-col">
-            <h4>Legal</h4>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Security</a>
-          </div>
-        </div>
+        <nav className="footer-nav" aria-label="Footer navigation">
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/contact">Contact</Link>
+          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/task">Task</Link>
+        </nav>
       </div>
 
       <div className="footer-bottom">
-        © 2026 Worktrack. All rights reserved.
+        © 2026 WorkTrack. All rights reserved.
       </div>
     </footer>
   );
