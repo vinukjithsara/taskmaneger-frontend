@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 type Todo = {
   id: number;
   title: string;
-  completed: boolean;
+  status: string;
 };
 
 const Dashboard = () => {
@@ -21,8 +21,11 @@ const Dashboard = () => {
       .catch(err => console.log(err));
   }, []);
 
-  const completedCount = todos.filter(t => t.completed).length;
-  const pendingCount = todos.length - completedCount;
+  const isCompleted = (todo: Todo) =>
+    todo.status.trim().toLowerCase() === "completed";
+
+  const completedCount = todos.filter(isCompleted).length;
+  const pendingCount = todos.filter(todo => !isCompleted(todo)).length;
 
   return (
     <section className="dashboard-page">
@@ -59,9 +62,9 @@ const Dashboard = () => {
 
         <ul className="task-list">
           {todos.map((todo) => (
-            <li key={todo.id} className={todo.completed ? "done" : ""}>
+            <li key={todo.id} className={isCompleted(todo) ? "done" : ""}>
               <span>{todo.title}</span>
-              {todo.completed && <span className="check">✓</span>}
+              {isCompleted(todo) && <span className="check">✓</span>}
             </li>
           ))}
         </ul>
