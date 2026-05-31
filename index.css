@@ -980,23 +980,23 @@ a.btn:hover {
 /* CTA */
 
 .hero-cta {
-  width: fit-content;
-  padding: 12px 26px;
+  width: 100%;
+  padding: 13px;
 
-  background: linear-gradient(135deg, #00B6B0, #22d3ee);
+  border-radius: 12px;
   border: none;
-  border-radius: 14px;
 
-  font-size: 14px;
-  font-weight: 600;
-  color: #021b1a;
+  background: linear-gradient(135deg, #00b6b0, #12c7c0);
+  color: #032221;
 
+  font-weight: 700;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0, 182, 176, 0.35);
-}
-
-.hero-cta:hover {
-  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(0, 182, 176, 0.20);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    opacity 0.12s ease;
 }
 
 /* RIGHT IMAGE */
@@ -1515,7 +1515,34 @@ a.btn:hover {
 .auth-btn:hover {
   opacity: 0.95;
   transform: translateY(-1px);
-  box-shadow: 0 16px 34px rgba(0, 182, 176, 0.26);
+  box-shadow: 0 14px 30px rgba(0, 182, 176, 0.26);
+}
+
+.auth-btn:active {
+  transform: translateY(0) scale(0.998);
+  transition-duration: 0.08s;
+}
+
+.auth-btn[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* small inline spinner used inside auth buttons */
+.btn-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(3,6,8,0.12);
+  border-top-color: rgba(255,255,255,0.95);
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  animation: btn-spin 0.8s linear infinite;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
 }
 
 /* ERROR */
@@ -2196,6 +2223,46 @@ a.btn:hover {
 textarea.modal-input {
   min-height: 120px;
   resize: none;
+}
+
+/* ===== DASHBOARD EMPTY STATE ===== */
+.no-tasks {
+  max-width: 720px;
+  margin: 28px auto 0;
+  padding: 42px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.02);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 18px 40px rgba(0,0,0,0.5);
+}
+
+.no-tasks img {
+  width: min(260px, 36%);
+  max-width: 280px;
+  height: auto;
+  margin-bottom: 18px;
+  filter: drop-shadow(0 18px 28px rgba(0,0,0,0.28));
+}
+
+.no-tasks p {
+  margin: 0;
+  color: rgba(255,255,255,0.78);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .no-tasks {
+    padding: 28px 18px;
+  }
+
+  .no-tasks img {
+    width: min(220px, 48%);
+  }
 }
 
 .modal-actions {

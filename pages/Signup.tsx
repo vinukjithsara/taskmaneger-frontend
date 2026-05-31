@@ -10,8 +10,10 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSignup = async () => {
+    if (loading) return;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     // ✅ VALIDATIONS (same as your code)
@@ -38,6 +40,7 @@ const Signup = () => {
     setError("");
 
     try {
+      setLoading(true);
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/register`, {
         method: "POST",
         headers: {
@@ -54,15 +57,19 @@ const Signup = () => {
 
       if (!res.ok) {
         setError(data.message || "Signup failed");
+        setLoading(false);
         return;
       }
 
       alert("Signup successful ✅");
       navigate("/login");
 
+      setLoading(false);
+
     } catch (err) {
       console.log(err);
       setError("Server error");
+      setLoading(false);
     }
   };
 
@@ -111,8 +118,14 @@ const Signup = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
 
-        <button className="auth-btn" onClick={handleSignup}>
-          SIGN UP
+        <button className="auth-btn" onClick={handleSignup} disabled={loading}>
+          {loading ? (
+            <>
+              <span className="btn-spinner" aria-hidden="true" /> SIGNING UP...
+            </>
+          ) : (
+            "SIGN UP"
+          )}
         </button>
 
         <p className="auth-footer">

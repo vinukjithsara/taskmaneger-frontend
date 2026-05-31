@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import todoSvg from "../assets/todo.svg";
 import { useLocation } from "react-router-dom";
 
 type Todo = {
@@ -86,21 +87,28 @@ const Dashboard = () => {
           Today <span>Tasks</span>
         </h2>
 
-        <ul className="task-list">
-          {todos.map((todo) => (
-            <li key={todo.id} className={isCompleted(todo) ? "done" : ""}>
-              <span className="task-list-title">{todo.title}</span>
-              {isCompleted(todo) && (
-                <span
-                  className="completed-check dashboard-completed-check"
-                  aria-label="Completed"
-                >
-                  &#10003;
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
+        {todos.length === 0 ? (
+          <div className="no-tasks">
+            <img src={todoSvg} alt="No tasks" />
+            <p>No task created</p>
+          </div>
+        ) : (
+          <ul className="task-list">
+            {todos.map((todo) => (
+              <li key={todo.id} className={isCompleted(todo) ? "done" : ""}>
+                <span className="task-list-title">{todo.title}</span>
+                {isCompleted(todo) && (
+                  <span
+                    className="completed-check dashboard-completed-check"
+                    aria-label="Completed"
+                  >
+                    &#10003;
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
 
       </div>
     </section>

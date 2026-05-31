@@ -12,8 +12,11 @@ const Login = ({ setIsLoggedIn }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    if (loading) return;
+    setLoading(true);
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
         method: "POST",
@@ -30,6 +33,7 @@ const Login = ({ setIsLoggedIn }: LoginProps) => {
 
       if (!res.ok) {
         setError(data.message || "Login failed");
+        setLoading(false);
         return;
       }
 
@@ -41,9 +45,12 @@ const Login = ({ setIsLoggedIn }: LoginProps) => {
       setIsLoggedIn(true);
       navigate("/dashboard");
 
+      setLoading(false);
+
     } catch (err) {
       console.log(err);
       setError("Server error");
+      setLoading(false);
     }
   };
 
@@ -81,8 +88,14 @@ const Login = ({ setIsLoggedIn }: LoginProps) => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="auth-btn" onClick={handleLogin}>
-          LOGIN
+        <button className="auth-btn" onClick={handleLogin} disabled={loading}>
+          {loading ? (
+            <>
+              <span className="btn-spinner" aria-hidden="true" /> LOGGING IN...
+            </>
+          ) : (
+            "LOGIN"
+          )}
         </button>
 
         <p className="auth-footer">
